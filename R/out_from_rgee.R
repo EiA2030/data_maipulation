@@ -13,14 +13,8 @@ format2tbl <- function(url, attribute){
   return(col)
 }
 
-####################################################################################################################################
-#######                                               some examples                                      
-####################################################################################################################################
-
-
-
-srad.col <- format2tbl(url = "https://storage.googleapis.com/iita_transform_bucket/points_srad__2021_04_14_10_42_31.geojson", attribute = "srad_J/m2")
-prec.col <- format2tbl(url = "https://storage.googleapis.com/iita_transform_bucket/points_prec__2021_04_14_10_42_35.geojson", attribute = "prec_mm")
-
-dmerge = function(x,y) merge(x,y,all=TRUE, no.dups = TRUE)
-weather <- Reduce(dmerge,list(srad.col,tmin.col,tmax.col,vapr.col,windU.col,windV.col))
+# Function to merge the different outputs into one single object
+dmerge <- function(x,y){
+    m <- merge(x,y,all=TRUE, no.dups = TRUE)
+    return(m)
+}
