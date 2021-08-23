@@ -4,14 +4,15 @@ tidy.noaa <- function() {
   require(geodata)
   n <- 1
   # for (band in c("srad", "prec", "wind", "temp", "tmax", "tmin", "vapr")) {
+  # for (band in list.dirs(path = ".", full.names = TRUE, recursive = TRUE)) {
   for (band in c("srad", "prec")) {
     files <- list.files(paste0("NOAA_data/process/", band), pattern = paste0("noaa_", band), full.names = TRUE)
-    s.year <- substr(a[1], nchar(a[1])-20, nchar(a[1])-17)
-    s.month <- substr(a[1], nchar(a[1])-16, nchar(a[1])-15)
-    s.day <- substr(a[1], nchar(a[1])-14, nchar(a[1])-13)
-    e.year <- substr(a[2], nchar(a[2])-20, nchar(a[2])-17)
-    e.month <- substr(a[2], nchar(a[2])-16, nchar(a[2])-15)
-    e.day <- substr(a[2], nchar(a[2])-14, nchar(a[2])-13)
+    s.year <- substr(files[1], nchar(files[1])-20, nchar(files[1])-17)
+    s.month <- substr(files[1], nchar(files[1])-16, nchar(files[1])-15)
+    s.day <- substr(files[1], nchar(files[1])-14, nchar(files[1])-13)
+    e.year <- substr(files[length(files)], nchar(files[length(files)])-20, nchar(files[length(files)])-17)
+    e.month <- substr(files[length(files)], nchar(files[length(files)])-16, nchar(files[length(files)])-15)
+    e.day <- substr(files[length(files)], nchar(files[length(files)])-14, nchar(files[length(files)])-13)
     dates <- seq(as.Date(as.character(paste0(s.year,s.month,s.day)), format="%Y%m%d"),
                  as.Date(as.character(paste0(e.year,e.month,e.day)), format="%Y%m%d"), by = "day")
     x <- rast(files)
